@@ -5,14 +5,14 @@ import { Provider } from "react-redux"
 import thunk  from "redux-thunk"
 
 import App from "./App"
-import example from "./store/example"
+import articleReducer from "./store/articles/reducer"
 
-export interface IAppState {
-  example: ArticleState
+interface IAppState {
+  article: ArticleState
 }
 
 const reducer = combineReducers<IAppState>({
-  example
+  article: articleReducer
 })
 
 const store: Store<ArticleState, ArticleAction> & {
