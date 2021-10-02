@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './withStore';
+import WithStore from './store/withStore';
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WithStore />
   </React.StrictMode>,
   document.getElementById('root'),
 );

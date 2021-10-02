@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Score from './components/score/';
 
-interface AppProps {}
+interface AppProps {
+}
 
 function App({}: AppProps) {
   // Create the count state.
@@ -18,6 +20,7 @@ function App({}: AppProps) {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
+          <Score />
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <p>

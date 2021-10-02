@@ -1,5 +1,0 @@
-
-    
-  type ScoreState = {
-    score: Number
-  }
