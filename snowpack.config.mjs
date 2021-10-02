@@ -14,6 +14,10 @@ export default {
         ...(process.versions.pnp ? { tsc: 'yarn pnpify tsc' } : {}),
       },
     ],
+    ["snowpack-plugin-baseurl-handler", {
+      exts: [".html", ".js", ".jsx", ".css"],
+      baseUrl: '/',
+    }],
   ],
   routes: [
     /* Enable an SPA Fallback in development: */
