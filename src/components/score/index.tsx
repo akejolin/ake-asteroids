@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 
 import { useAppSelector, useAppDispatch } from 'src/store/hooks'
-
-import { decrement, increment } from 'src/store/score/slice'
+import { decrement, increment } from 'src/store/asteroids/score'
 
 interface ComponentProps {
-  tool?: string | 'hej'
+  tool?: string | 'none'
 }
 
 export default ({tool}: ComponentProps) => {
-  // The `state` arg is correctly typed as `RootState` already
+
   const count = useAppSelector((state) => state.score.value)
   const dispatch = useAppDispatch()
 
