@@ -29,10 +29,13 @@ export const slice = createSlice({
     decrementByAmount: (state, action: PayloadAction<number>) => {
       state.value -= action.payload
     },
+    setValue: (state, action: PayloadAction<number>) => {
+      state.value = action.payload
+    },
   },
 })
 
-export const { increment, decrement, incrementByAmount, decrementByAmount } = slice.actions
+export const { increment, decrement, incrementByAmount, decrementByAmount, setValue } = slice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selector = (state: RootState) => state[slice.name].value

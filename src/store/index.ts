@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
 import score from './asteroids/score'
 import status from './asteroids/status'
 import statusNewUfo from './asteroids/status-new-ufo'
@@ -10,6 +10,11 @@ import shield from './asteroids/shield'
 import shieldFuel from './asteroids/shield-fuel'
 import upgradeFuel from './asteroids/upgrade-fuel'
 import colorTheme from './asteroids/color-theme'
+import mode from './asteroids/mode'
+import keys from './asteroids/keys'
+import canvas from './asteroids/canvas'
+import context from './asteroids/canvasContext'
+import screen from './asteroids/screen'
 
 
 export const store = configureStore({
@@ -25,8 +30,14 @@ export const store = configureStore({
     statusNewUfo,
     statusNewUpgrade,
     colorTheme,
+    mode,
+    keys,
+    canvas,
+    context,
+    screen,
   },
 })
+
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

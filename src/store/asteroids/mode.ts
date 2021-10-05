@@ -2,32 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from 'src/store'
 
 // Define a type for the slice state
-
-export enum statusTypes {
-  MOUNTING = "MOUNTING",
-  GAME_ON = "GAME_ON",
-  GAME_START = "GAME_START",
-  GAME_GET_READY = "GAME_GET_READY",
-  GAME_OVER = "GAME_OVER",
-  INITIAL = "INITIAL"
-}
-
 interface State {
-  value: statusTypes
+  value: string
 }
 
 // Define the initial state using that type
 const initialState: State = {
-  value: statusTypes.MOUNTING,
+  value: 'INIT',
 }
 
 export const slice = createSlice({
-  name: 'status',
+  name: 'mode',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    update: (state, action: PayloadAction<statusTypes>) => {
+    update: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     },
   },
