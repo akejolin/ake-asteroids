@@ -1,7 +1,6 @@
 FROM node:15.11.0 as builder
 
 ENV PORT 3000
-ENV NODE_ENV production
 
 WORKDIR /opt/app
 
