@@ -485,7 +485,7 @@ async update():Promise<void> {
   render() {
  
     const {screen} = this.state
-    const {gameStatus} = this
+
     return (
       <React.Fragment>
         <ScreenHandler
