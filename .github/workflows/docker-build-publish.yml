@@ -5,7 +5,7 @@ name: Publish docker image and deploy to production
 #      - "v*"
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 jobs:
   push_to_registry:
     name: Deploy to production
@@ -27,8 +27,8 @@ jobs:
         with:
           push: true
           tags: |
-            docker.pkg.github.com/${{ github.repository }}/lb-asteroids-image:${{ github.sha }}
-            docker.pkg.github.com/${{ github.repository }}/lb-asteroids-image:latest
+            docker.pkg.github.com/${{ github.repository }}/ake-asteroids-image:${{ github.sha }}
+            docker.pkg.github.com/${{ github.repository }}/ake-asteroids-image:latest
       - name: Executing remotely deploy scripts
         uses: appleboy/ssh-action@master
         with:
@@ -38,7 +38,7 @@ jobs:
           port: 222
           passphrase: ${{ secrets.DROPLET_PASSPHRASE }}
           script: |
-            . ~/deploy.sh
+            . ~/deploy-ake-asteroids.sh
 
 
 
