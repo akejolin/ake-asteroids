@@ -10,15 +10,12 @@ type ComponentProps = {
 }
 
 
-
-export default (props: ComponentProps) => {
+export const InitBoard = (props: ComponentProps) => {
+  const [highscoreDisplayed, setHighscoreDisplayed] = useState(false)
 
   if (props.gameStatus !== "INITIAL") {
     return null
   }
-
-
-  const [highscoreDisplayed, setHighscoreDisplayed] = useState(false)
 
   const styles = {
     infoBtn: {
@@ -90,3 +87,5 @@ export default (props: ComponentProps) => {
     </div>
   )
 }
+
+export default InitBoard

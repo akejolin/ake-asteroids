@@ -10,8 +10,8 @@ type ComponentProps = {
 }
 
 
-
-export default (props: ComponentProps) => {
+/* eslint-disable import/no-anonymous-default-export */
+export const GameOverBoard = (props: ComponentProps) => {
 
   if (props.gameStatus !== "GAME_OVER") {
     return null
@@ -38,3 +38,4 @@ export default (props: ComponentProps) => {
     </div>
   )
 }
+export default GameOverBoard

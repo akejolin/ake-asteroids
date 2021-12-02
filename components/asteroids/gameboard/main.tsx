@@ -16,8 +16,7 @@ type ComponentProps = {
 }
 
 
-
-export default (props: ComponentProps) => {
+export const GameBoard = (props: ComponentProps) => {
     return (
       <div style={{
         width: '100vw',
@@ -55,3 +54,5 @@ export default (props: ComponentProps) => {
 
     </div>)
 }
+
+export default GameBoard

@@ -11,7 +11,8 @@ type ComponentProps = {
 
 
 
-export default (props: ComponentProps) => {
+
+  export const GetReadyBoard = (props: ComponentProps) => {
 
   if (props.gameStatus !== "GAME_GET_READY" && props.gameStatus !== "GAME_RECOVERY") {
     return null
@@ -38,3 +39,5 @@ export default (props: ComponentProps) => {
     </div>
   )
 }
+
+export default GetReadyBoard

@@ -12,8 +12,7 @@ type ComponentProps = {
 }
 
 
-
-export default (props: ComponentProps) => {
+export const TextFlasher = (props: ComponentProps) => {      
   if (!props.allowedStatus.some(item => item === props.gameStatus)) {
     return null
   }
@@ -40,3 +39,5 @@ export default (props: ComponentProps) => {
     </div>
   )
 }
+
+export default TextFlasher

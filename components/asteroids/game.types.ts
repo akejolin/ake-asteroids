@@ -1,4 +1,4 @@
-import type {Ikeys} from 'src/asteroids/keys'
+import type {Ikeys} from './keys'
 import type { Iscreen } from './screen-handler'
 
 export interface Iposition {

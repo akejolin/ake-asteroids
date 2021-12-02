@@ -62,7 +62,7 @@ export const generateAsteroids = (that:any, amount:number) => {
       onDie: () => {},
       onSound: that.onSound.bind(that),
       updateUpgradeFuel: (data:any) => {
-        return that.props.actions.updateUpgradeFuel(data)},
+        return that.props.actions.UPDATE_UPGRADE_FUEL(data)},
       
     });
     that.createObject(ship, 'ships')
@@ -130,7 +130,7 @@ export const generateShield = (that:any) => {
       },
       create: that.createObject.bind(that),
       ship: ship,
-      updateShieldFuel: (data:number) => that.props.actions.updateShieldFuel(data),
+      updateShieldFuel: (data:number) => that.props.actions.UPDATE_SHIELD_FUEL(data),
       onSound: that.onSound.bind(that)
     })
     that.createObject(shield, 'shields');
@@ -149,7 +149,7 @@ export const generateShield = (that:any) => {
       },
       create: that.createObject.bind(that),
       ship: ship,
-      updateShieldFuel: (data:number) => that.props.actions.updateShieldFuel(data),
+      updateShieldFuel: (data:number) => that.props.actions.UPDATE_SHIELD_FUEL(data),
       onSound: that.onSound.bind(that),
       onStopSound: that.onStopSound.bind(that)
     })

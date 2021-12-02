@@ -13,7 +13,7 @@ export interface Iprops {
   color?: string;
   lifeSpan?: number;
   velocity?:Iposition;
-  speedTransformation?: Iposition;
+  speedTransformation?: number;
 }
 
 export default class Bullet {
@@ -55,7 +55,7 @@ export default class Bullet {
       this.rotation = this.rotation + props.additionalRotation
     }
 
-    let posDelta = rotatePoint({x:0, y: props.speedTransformation ? props.speedTransformation : -20}, {x:0,y:0}, this.rotation * Math.PI / 180);
+    let posDelta = rotatePoint({x:0, y: props.speedTransformation ? Number(props.speedTransformation) : -20}, {x:0,y:0}, this.rotation * Math.PI / 180);
     this.position = {
       x: props.ship.position.x + posDelta.x,
       y: props.ship.position.y + posDelta.y

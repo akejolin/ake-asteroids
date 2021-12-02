@@ -30,7 +30,7 @@ type IProps = {
     keys: Ikeys,
   }
 
-export default ({keys, cb=()=>{}}:IProps) => {
+export const Keys = ({keys, cb=()=>{}}:IProps) => {
     const handleKeys = (value: boolean ) => (e: KeyboardEvent): void => {
         if (e.keyCode === KEY.ESCAPE) keys.escape = value;
         if (e.keyCode === KEY.LEFT   || e.keyCode === KEY.A) keys.left  = value;
@@ -49,3 +49,5 @@ export default ({keys, cb=()=>{}}:IProps) => {
       }, [])
     return null
 }
+
+export default Keys

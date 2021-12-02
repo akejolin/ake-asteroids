@@ -10,8 +10,7 @@ type ComponentProps = {
 }
 
 
-
-export default (props: ComponentProps) => {
+export const GameBoarder = (props: ComponentProps) => {
 
   if (!props.show) {
     return null
@@ -32,3 +31,5 @@ export default (props: ComponentProps) => {
     </div>
   )
 }
+
+export default GameBoarder

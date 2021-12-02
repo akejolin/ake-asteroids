@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { useAppSelector, useAppDispatch } from 'src/store/hooks'
+import React, { useEffect } from 'react'
 
 export interface Iscreen {
   width: number,
@@ -11,7 +10,8 @@ type IProps = {
   cb:Function,
 }
 
-export default ({cb=()=>{}}:IProps) => {
+
+export const ScreenHandler = ({cb=()=>{}}:IProps) => {
 
     const handle = (e: UIEvent): void => {
       cb({
@@ -32,3 +32,5 @@ export default ({cb=()=>{}}:IProps) => {
 
     return null
 }
+
+export default ScreenHandler

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { actionCreators } from './actions'
+import * as actionCreators from '../../redux/asteroids/actions'
 
 import KeyHandler, { KEY } from './keys'
 import ScreenHandler from './screen-handler'
@@ -31,7 +31,7 @@ import BoardInit from './boardInit'
 import BoardGameOver from './boardGameOver'
 import TextFlasher from './text-flasher'
 import GameBoard from './gameboard/main'
-import Canvas from './canvas'
+
 import { superNova } from './nova'
 import sounds from './sounds'
 import GameBorder from './gameBorder'
@@ -151,13 +151,13 @@ export class Game extends Component<IProps> {
     }
     this.update()
   
-    this.props.actions.updateGameStatus('INITIAL')
+    this.props.actions.UPDATE_GAME_STATUS('INITIAL')
   }
 
   componentWillUnmount():void {
     clearAllIntervals()
     this.removeAllCanvasItems()
-    this.props.actions.updateGameStatus('STOPPED')
+    this.props.actions.UPDATE_GAME_STATUS('STOPPED')
   }
 
   componentDidUpdate(prevProps: IProps, prevState:IState):void {
@@ -180,17 +180,17 @@ export class Game extends Component<IProps> {
           clearAllIntervals()
           this.removeAllCanvasItems()
           generateAsteroids(this, 1)
-          this.props.actions.updateGameLevel(0)
-          this.props.actions.updateUpgradeFuel(0)
-          this.props.actions.updateShieldFuel(0)
-          this.props.actions.updateLives(2)
+          this.props.actions.UPDATE_GAME_LEVEL(0)
+          this.props.actions.UPDATE_UPGRADE_FUEL(0)
+          this.props.actions.UPDATE_SHIELD_FUEL(0)
+          this.props.actions.UPDATE_LIVES(2)
           generateStars(this)
           this.setState({
             inifityScreen: true,
             inifityFuel: 0,
           })
           createShip(this)
-          this.props.actions.updateGameStatus('GAME_ON')
+          this.props.actions.UPDATE_GAME_STATUS('GAME_ON')
           break;
         case 'GAME_ABORT':
           removeInterval('abortAfterGameOver')
@@ -199,26 +199,27 @@ export class Game extends Component<IProps> {
             inifityScreen: true,
             inifityFuel: 0,
           })
-          this.props.actions.updateGameStatus('INITIAL')
+          this.props.actions.UPDATE_GAME_STATUS('INITIAL')
           break;
         case 'GAME_NEW_LAUNCH':
             createShip(this)
-            this.props.actions.updateShieldFuel(0)
-            this.props.actions.updateGameStatus('GAME_ON')
+            this.props.actions.UPDATE_SHIELD_FUEL(0)
+            this.props.actions.UPDATE_GAME_STATUS('GAME_ON')
           break;
         case 'GAME_RECOVERY':
           this.removeCanvasItems(['ship'])
           addInterval('waitForRecovery', 500, () => {
             removeInterval('waitForRecovery')
-            this.props.actions.updateGameStatus('GAME_GET_READY')
-            this.props.actions.updateShieldFuel(0)
+            this.props.actions.UPDATE_GAME_STATUS('GAME_GET_READY')
+            this.props.actions.UPDATE_SHIELD_FUEL(0)
           })
           break;
         case 'GAME_GET_READY':
           removeInterval('waitForRecovery')
           addInterval('waitForGetReady', 10000, () => {
+            
             removeInterval('waitForGetReady')
-            this.props.actions.updateGameStatus('GAME_NEW_LAUNCH')
+            this.props.actions.UPDATE_GAME_STATUS('GAME_NEW_LAUNCH')
           })
           break;
         case 'GAME_LEVEL_UP':
@@ -230,7 +231,7 @@ export class Game extends Component<IProps> {
         case 'GAME_OVER':
           addInterval('abortAfterGameOver', 4000, () => {
             removeInterval('abortAfterGameOver')
-            this.props.actions.updateGameStatus('GAME_ABORT')
+            this.props.actions.UPDATE_GAME_STATUS('GAME_ABORT')
           })
           break;
       }
@@ -250,7 +251,7 @@ export class Game extends Component<IProps> {
   }
 
   addScore(points:number) {
-    this.props.actions.addScore(points)
+    this.props.actions.ADD_SCORE(points)
   }
 
   onSound(data:Isound):void{
@@ -269,7 +270,7 @@ export class Game extends Component<IProps> {
     // Extralife
     switch(upgrade.type) {
       case 'extraLife':
-        this.props.actions.updateLives('+1')      
+        this.props.actions.UPDATE_LIVES('+1')      
       break;
       case 'nova':
         const asteroids = this.canvasItemsGroups['asteroids']
@@ -311,13 +312,14 @@ export class Game extends Component<IProps> {
 levelUp() {
   const amountOfAsteroids = Math.floor(Number(this.props.level) + 1)
   const nextSelectedColor = randomInterger(0, themes.length - 1 )
-  this.props.actions.updateColorTheme(nextSelectedColor)
-  this.state.colorThemeIndex = nextSelectedColor
-
-  this.state.nextPresentDelay = randomNumBetween(400, 1000)
+  this.props.actions.UPDATE_COLOR_THEME(nextSelectedColor)
+  this.setState({
+    colorThemeIndex: nextSelectedColor,
+    nextPresentDelay: randomNumBetween(400, 1000)
+  })
   generateAsteroids(this, amountOfAsteroids)
-  this.props.actions.addScore(1000)
-  this.props.actions.updateGameStatus('GAME_ON')
+  this.props.actions.ADD_SCORE(1000)
+  this.props.actions.UPDATE_GAME_STATUS('GAME_ON')
 }
 
 async update():Promise<void> {
@@ -337,8 +339,10 @@ async update():Promise<void> {
     }
 
     if (!this.state.inifityScreen) {
-      if (this.state.inifityFuel-- < 0) {
+      if (this.state.inifityFuel < 0) {
         this.setState({inifityScreen:true,inifityFuel:0})
+      } else {
+        this.setState({inifityFuel: this.state.inifityFuel--})
       }
     }
 
@@ -405,10 +409,10 @@ async update():Promise<void> {
           }
           item2.destroy(item1.type);
           if (this.props.lives < 1) {
-            this.props.actions.updateGameStatus('GAME_OVER')
+            this.props.actions.UPDATE_GAME_STATUS('GAME_OVER')
           } else {
-            this.props.actions.updateLives('-1')
-            this.props.actions.updateGameStatus('GAME_RECOVERY')
+            this.props.actions.UPDATE_LIVES('-1')
+            this.props.actions.UPDATE_GAME_STATUS('GAME_RECOVERY')
           }
         }
       },   
@@ -449,19 +453,19 @@ async update():Promise<void> {
 
     // Instant Key handling
     if (this.props.gameStatus === 'INITIAL' && state.keys.space) {
-      this.props.actions.updateGameStatus('GAME_START')
+      this.props.actions.UPDATE_GAME_STATUS('GAME_START')
     }
     if ((this.props.gameStatus === 'GAME_ON' || this.props.gameStatus === 'GAME_OVER') && state.keys.escape) {
-      this.props.actions.updateGameStatus('GAME_ABORT')
+      this.props.actions.UPDATE_GAME_STATUS('GAME_ABORT')
     }
     if (this.props.gameStatus === 'GAME_GET_READY' && state.keys.space) {
-      this.props.actions.updateGameStatus('GAME_NEW_LAUNCH')
+      this.props.actions.UPDATE_GAME_STATUS('GAME_NEW_LAUNCH')
     }
 
 
     if (!this.canvasItemsGroups['asteroids'].length && this.props.gameStatus === 'GAME_ON') {
-      this.props.actions.updateGameLevel('+1')
-      this.props.actions.updateGameStatus('GAME_LEVEL_UP')
+      this.props.actions.UPDATE_GAME_LEVEL('+1')
+      this.props.actions.UPDATE_GAME_STATUS('GAME_LEVEL_UP')
     }
 
     await updateObjects(this.canvasItemsGroups, this.state, this.ctx)
@@ -481,6 +485,7 @@ async update():Promise<void> {
   render() {
  
     const {screen} = this.state
+    const {gameStatus} = this
     return (
       <React.Fragment>
         <ScreenHandler
@@ -507,12 +512,26 @@ async update():Promise<void> {
           upgradeFuelTotal={this.props.upgradeFuelTotal}
         />
         <GameBorder show={!this.state.inifityScreen} inifityFuel={this.state.inifityFuel}/>
-        <Canvas
-          ref={this.canvasRef}
-          background={themes[this.state.colorThemeIndex].background}
-          width={screen.width * screen.ratio}
-          height={screen.height * screen.ratio}
-        />
+
+        <canvas
+            id="canvas-board"
+            ref={this.canvasRef}
+            style={{
+              display: 'block',
+              backgroundColor: themes[this.state.colorThemeIndex].background,
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              width: '100%',
+              height: '100%',
+            }}
+            width={screen.width * screen.ratio}
+            height={screen.height * screen.ratio}
+          />
+
+
+
       </React.Fragment>
     )
   }
