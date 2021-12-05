@@ -6,7 +6,7 @@ WORKDIR /opt/app
 
 # Installing dependencies
 COPY package.json yarn.lock /opt/app/
-RUN npm i
+RUN yarn
 
 # Copying source files
 COPY . /opt/app/
