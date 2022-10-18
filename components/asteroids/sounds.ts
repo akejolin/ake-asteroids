@@ -3,7 +3,7 @@ import type {soundArrObject} from './game.types'
 import UIfx from '../utils/uifx'
 
 
-const SNOWPACK_PUBLIC_PUBLIC_URL = ''
+const SNOWPACK_PUBLIC_PUBLIC_URL = '//static.akejolin.se/asteroids'
 
 
 export default {
